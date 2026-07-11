@@ -21,18 +21,20 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # Solución mágica para saltarse gradlew local y habilitar soporte nativo AndroidX
-      - name: Instalar Gradle del Sistema, Configurar AndroidX y Generar Wrapper
+      # Usar la acción nativa oficial de Gradle para evitar scripts apt-get rotos o desactualizados
+      - name: Configurar Gradle Nativo de Alto Rendimiento (v8.5)
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.5'
+
+      # Fuerza la compatibilidad de AndroidX directamente en caliente para evitar errores de AAR Metadata
+      - name: Forzar Propiedades de AndroidX
         run: |
-          sudo apt-get update
-          sudo apt-get install -y gradle
-          gradle wrapper --gradle-version 8.5
-          chmod +x gradlew
           echo "android.useAndroidX=true" > gradle.properties
           echo "android.enableJetifier=true" >> gradle.properties
 
-      - name: Compilar APK de Depuración (Debug APK)
-        run: ./gradlew assembleDebug
+      - name: Compilar APK de Depuración (Debug APK de forma directa)
+        run: gradle assembleDebug
 
       - name: Guardar y Enviar APK compilado
         uses: actions/upload-artifact@v4
