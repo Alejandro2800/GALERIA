@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.samsung.gallery.app"
-        minSdk = 24 // Compatible con el 95%+ de dispositivos a nivel mundial
+        minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
@@ -40,7 +40,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.8"
     }
 }
 
@@ -49,13 +49,12 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
     
-    // Jetpack Compose y Material Design 3
-    implementation(platform("androidx.compose:compose-bom:2203.12.01"))
+    implementation(platform("androidx.compose:compose-bom:2024.02.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     
-    // Coil (Carga asíncrona de imágenes y almacenamiento en caché)
-    implementation("io.coil-kt:coil-compose:2.5.0")
+    // Coil para carga eficiente de imágenes locales de la galería
+    implementation("io.coil-kt:coil-compose:2.6.0")
 }
