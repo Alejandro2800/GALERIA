@@ -1,4 +1,4 @@
-<!-- STREAMING_CHUNK: Declaración de permisos de almacenamiento en Android Manifest -->
+<!-- STREAMING_CHUNK: Permisos de acceso locales para todas las versiones de Android -->
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.samsung.gallery.app">
@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" 
                      android:maxSdkVersion="28" />
 
-    <!-- Compatibilidad requerida para Android 13, 14 y 15+ -->
+    <!-- Compatibilidad requerida para Android 13, 14, 15 y superiores -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
 
