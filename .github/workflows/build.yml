@@ -1,4 +1,4 @@
-name: Generar APK de Galería One UI 
+name: Generar APK de Galería One UI
 
 on:
   push:
