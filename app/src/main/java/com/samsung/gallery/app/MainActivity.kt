@@ -38,7 +38,6 @@ class MainActivity : ComponentActivity() {
 
     private val mediaListState = mutableStateListOf<Uri>()
 
-    // Solicitar dinámicamente los permisos adecuados para cualquier versión de Android
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
@@ -51,7 +50,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // Determinar permisos según la versión de Android del dispositivo
         val permissionsNeeded = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arrayOf(
                 Manifest.permission.READ_MEDIA_IMAGES,
@@ -61,7 +59,6 @@ class MainActivity : ComponentActivity() {
             arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
         }
 
-        // Verificar si ya tenemos acceso
         val hasPermission = permissionsNeeded.all {
             ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
         }
@@ -141,12 +138,6 @@ fun GalleryMainScreen(uris: List<Uri>) {
                     icon = { Icon(Icons.Default.Folder, contentDescription = "Álbumes") },
                     label = { Text("Álbumes", fontSize = 10.sp) }
                 )
-                NavigationBarItem(
-                    selected = activeTab == "More",
-                    onClick = { activeTab = "More" },
-                    icon = { Icon(Icons.Default.MoreVert, contentDescription = "Más") },
-                    label = { Text("Utilidades", fontSize = 10.sp) }
-                )
             }
         }
     ) { paddingValues ->
@@ -156,30 +147,23 @@ fun GalleryMainScreen(uris: List<Uri>) {
                 .padding(paddingValues)
                 .background(Color(0xFF121212))
         ) {
-            // Título colapsable One UI
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 24.dp, vertical = 20.dp)
             ) {
                 Text(
-                    text = when (activeTab) {
-                        "Pictures" -> "Imágenes"
-                        "Albums" -> "Álbumes"
-                        else -> "Utilidades"
-                    },
+                    text = if (activeTab == "Pictures") "Imágenes" else "Álbumes",
                     fontSize = 32.sp,
-                    color = Color.White,
-                    style = MaterialTheme.typography.headlineLarge
+                    color = Color.White
                 )
                 Text(
-                    text = "${uris.size} elementos locales",
+                    text = "${uris.size} fotos locales encontradas",
                     fontSize = 12.sp,
                     color = Color.Gray
                 )
             }
 
-            // Grid de Fotos con estilo redondeado One UI (8dp)
             if (activeTab == "Pictures") {
                 if (uris.isEmpty()) {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -199,7 +183,7 @@ fun GalleryMainScreen(uris: List<Uri>) {
                                 modifier = Modifier
                                     .aspectRatio(1f)
                                     .clip(RoundedCornerShape(8.dp))
-                                    .clickable { /* Abrir detalle */ },
+                                    .clickable { },
                                 contentScale = ContentScale.Crop
                             )
                         }
@@ -207,7 +191,7 @@ fun GalleryMainScreen(uris: List<Uri>) {
                 }
             } else {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text("Pestaña en desarrollo nativo", color = Color.Gray)
+                    Text("Vista de álbumes locales", color = Color.Gray)
                 }
             }
         }
