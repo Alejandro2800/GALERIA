@@ -19,8 +19,8 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Image
-import androidx.compose.material.icons.filled.Folder
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -36,7 +36,7 @@ import coil.compose.AsyncImage
 
 class MainActivity : ComponentActivity() {
 
-    private val mediaListState = mutableStateListOf<Uri>()
+    private val mediaListState = mutableStateListOf()
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
@@ -117,7 +117,7 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GalleryMainScreen(uris: List<Uri>) {
+fun GalleryMainScreen(uris: List) {
     var activeTab by remember { mutableStateOf("Pictures") }
 
     Scaffold(
@@ -129,13 +129,13 @@ fun GalleryMainScreen(uris: List<Uri>) {
                 NavigationBarItem(
                     selected = activeTab == "Pictures",
                     onClick = { activeTab = "Pictures" },
-                    icon = { Icon(Icons.Default.Image, contentDescription = "Fotos") },
+                    icon = { Icon(Icons.Default.Home, contentDescription = "Fotos") },
                     label = { Text("Fotos", fontSize = 10.sp) }
                 )
                 NavigationBarItem(
                     selected = activeTab == "Albums",
                     onClick = { activeTab = "Albums" },
-                    icon = { Icon(Icons.Default.Folder, contentDescription = "Álbumes") },
+                    icon = { Icon(Icons.Default.List, contentDescription = "Álbumes") },
                     label = { Text("Álbumes", fontSize = 10.sp) }
                 )
             }
