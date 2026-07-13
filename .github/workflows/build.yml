@@ -31,10 +31,12 @@ jobs:
       - name: Generar Wrapper de Gradle
         run: gradle wrapper --gradle-version 8.5
 
-      # Fuerza la compatibilidad de AndroidX directamente en caliente para evitar errores de AAR Metadata
-      - name: Forzar Propiedades de AndroidX
+      # Fuerza la compatibilidad de AndroidX y amplía la memoria RAM a 2GB de forma estricta en el servidor
+      - name: Forzar Propiedades de AndroidX y Memoria (Auto-Corrección)
         run: |
-          echo "android.useAndroidX=true" > gradle.properties
+          echo "org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m" > gradle.properties
+          echo "org.gradle.daemon=false" >> gradle.properties
+          echo "android.useAndroidX=true" >> gradle.properties
           echo "android.enableJetifier=true" >> gradle.properties
 
       # Da permisos de ejecución al ejecutable de Gradle generado
