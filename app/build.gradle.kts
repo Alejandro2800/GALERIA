@@ -49,11 +49,16 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
     
+    // Configuración limpia y óptima de Compose mediante BOM de Android
     implementation(platform("androidx.compose:compose-bom:2024.02.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    
+    // DEPENDENCIAS CLAVE DE ICONOS AÑADIDAS PARA EVITAR FALLOS DE COMPILACIÓN KOTLIN
+    implementation("androidx.compose.material:material-icons-core")
+    implementation("androidx.compose.material:material-icons-extended")
     
     // Coil para carga eficiente de imágenes locales de la galería
     implementation("io.coil-kt:coil-compose:2.6.0")
